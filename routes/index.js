@@ -11,14 +11,12 @@ router.get('/:date', function(req, res) {
   var isDate = false;
   
   try {
-    var valid = (new Date(urlParam)).getTime() > 0;
-    if (!valid) {
-	  valid = (new Date(parseInt(urlParam)).getTime() > 0);
-	  urlParam = parseInt(urlParam * 1000);
-    }
-	if (valid) {
+	if ((new Date(urlParam)).getTime() > 0) {
 	  isDate = true;
-	}
+	} else if (!isDate && (Math.round(urlParam) == urlParam)) {
+	  urlParam = parseInt(urlParam) * 1000;
+	  isDate = true;
+    }
   }
   catch(err) {
 	console.log(err);
